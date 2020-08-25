@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <style>
+      body {
+        background-color: white;
+        color: black;
+      }
+
+      .dark-mode {
+        background-color: black;
+        color: white;
+      }
+    </style>
+  </head>
+
+  <body>
+    <% data.forEach(function(speaker) { %>
+    <li><%= speaker.speakerName %></li>
+    <% }); %>
+  </body>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      var theme = localStorage.getItem("theme");
+      document.body.classList.add(theme);
+    });
+  </script>
+</html>

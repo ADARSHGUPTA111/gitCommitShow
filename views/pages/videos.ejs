@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Videos</title>
+    <style>
+      body {
+        background-color: white;
+        color: black;
+      }
+
+      .dark-mode {
+        background-color: black;
+        color: white;
+      }
+    </style>
+  </head>
+
+  <body>
+    <form
+      method="POST"
+      action="/videos"
+      name="myform"
+      onsubmit="return validateForm()"
+    >
+      Video Title :
+      <input type="text" name="title" /><br />
+      Embed Video Link :
+      <input type="text" name="video" /><br />
+      Speaker Name :
+      <input type="text" name="speakerName" /><br />
+      Speaker Location :
+      <input type="text" name="speakerLocation" /><br />
+
+      <input type="submit" value="ADD" />
+    </form>
+    <p>The list of videos are :</p>
+
+    <ul>
+      <% data.forEach(function(video) { %>
+      <li><%= video.title %></li>
+      <li>
+        Speaker Name : <%= video.speakerName %> - Speaker Location : <%=
+        video.speakerLocation %>
+      </li>
+      <!-- <iframe
+      src="<%= video.url %>"
+      frameborder="0"
+      allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
+      controls="0"
+    /></iframe> -->
+      <p>Upvotes : <%= video.claps %></p>
+      <form method="POST" action="/upvote/<%= video._id %>">
+        <button>Upvote</button>
+      </form>
+      <% }); %>
+    </ul>
+  </body>
+
+  <script>
+    function validateForm() {
+      let name = document.myform.title.value;
+      let video = document.myform.video.value;
+      let speakerName = document.myform.speakerName.value;
+      let speakerLocation = document.myform.speakerLocation.value;
+
+      if (
+        name == "" ||
+        video == "" ||
+        speakerName == "" ||
+        speakerLocation == ""
+      ) {
+        alert("Please Check Form Again");
+        return false;
+      }
+    }
+    document.addEventListener("DOMContentLoaded", () => {
+      var theme = localStorage.getItem("theme");
+      document.body.classList.add(theme);
+    });
+  </script>
+</html>
